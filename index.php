@@ -6,6 +6,7 @@ $brand = "Volvo";
 $data = new Importar;
 $data->customers();
 $brandId = $data->getBrandId($brand);
-echo $brandId['brandId'];
+$brandId['brandId'];
+$data->brandCustomer()
 
 ?>

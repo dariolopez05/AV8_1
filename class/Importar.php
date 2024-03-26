@@ -23,7 +23,21 @@ class Importar extends Connection {
     }
 
     function brandCustomer() {
-        
+        $gestor = fopen('customers.csv', "r");
+        $conn= $this->getConn();
+        while (($element = fgetcsv($gestor, 0, "#")) !== false) {
+            $idCustomer = $element[0];
+            $favourite = explode(", ", $element[2]);
+                foreach ($favourite as $brand) {
+                    echo $brand . $idCustomer;
+                    $marca = $this->getBrandId($brand);
+                    if (!is_null($marca)) {
+                        $query = "INSERT INTO `brandCustomer`(`customerId`, `brandId`) VALUES ('$idCustomer','$marca[brandId]')";
+                        $result = mysqli_query($conn, $query);
+                    }
+            }
+        }
+        fclose($gestor);
     }
 
 }
