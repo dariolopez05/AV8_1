@@ -20,24 +20,30 @@ class Gestion extends Connection {
     function getFavourites($array){
         $conn = $this->getConn();
         $output = "";
-        $brands = [];
         foreach ($array as $brandId) {
+            $ids = [];
+
             $query = "SELECT `customerId`, `brandId` FROM `brandCustomer` WHERE `brandId` = '$brandId'";
             $result = mysqli_query($conn, $query);
-            $brands = $result->fetch_array(MYSQLI_ASSOC);
-            $customerId = $brands['customerId'];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $ids[] = $row['customerId'];
+            }
+         
+            for ($i=0; $i < count($ids); $i++) {
+                $id = $ids[$i];
+                $query = "SELECT `customerId`, `customerName` FROM `customers` WHERE `customerId` = '$id'";
+                $result = mysqli_query($conn, $query);
+                $names = $result->fetch_array(MYSQLI_ASSOC);
+                $name = $names['customerName'];
 
-            $query = "SELECT `brandId`, `brandName` FROM `brands` WHERE `brandId` = '$brandId'";
-            $result = mysqli_query($conn, $query);
-            $brand = $result->fetch_array(MYSQLI_ASSOC);
-            $brandName = $brand['brandName'];
+                $query = "SELECT `brandId`, `brandName` FROM `brands` WHERE `brandId` = '$brandId'";
+                $result = mysqli_query($conn, $query);
+                $brands = $result->fetch_array(MYSQLI_ASSOC);
+                $brand = $brands['brandName'];
 
-            $query = "SELECT `customerId`, `customerName` FROM `customers` WHERE `customerId` = '$customerId'";
-            $result = mysqli_query($conn, $query);
-            $clientes = $result->fetch_array(MYSQLI_ASSOC);
-            $customerName = $clientes['customerName'];
+                $output .= "<tr> <td>$ids[$i]</td> <td>$name</td> <td>$brand</td> </tr>";
+            }
             
-            $output .= "<tr> <td>$customerId</td> <td>$customerName</td> <td>$brandName</td> </tr>";
         }
         return $output;
     }
