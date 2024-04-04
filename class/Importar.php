@@ -29,13 +29,12 @@ class Importar extends Connection {
             $idCustomer = $element[0];
             $favourite = explode(", ", $element[2]);
                 foreach ($favourite as $brand) {
-                    echo $brand . $idCustomer;
                     $marca = $this->getBrandId($brand);
                     if (!is_null($marca)) {
                         $query = "INSERT INTO `brandCustomer`(`customerId`, `brandId`) VALUES ('$idCustomer','$marca[brandId]')";
-                        $result = mysqli_query($conn, $query);
+                        $result = mysqli_query($conn, $query); 
                     }
-            }
+            }/*Faltan hacer las consultas preparadas*/
         }
         fclose($gestor);
     }
