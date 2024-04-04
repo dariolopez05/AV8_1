@@ -4,7 +4,7 @@ session_start();
 require_once "autoloader.php";
 
 $data= new Gestion;
-echo $data->getBrands();
+$brands = $data->getBrands();
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ echo $data->getBrands();
 </head>
 <body>
     <form action="" method="post">
-    <?php /*echo $form; */?>
+    <?php echo $brands ?>
     <input type="submit" value="Seleccionar">
     </form>
 </body>
