@@ -11,12 +11,15 @@ class Gestion extends Connection {
             while ($brand = $result->fetch_array(MYSQLI_ASSOC)) {
                 $brandId = $brand['brandId'];
                 $brandName = $brand['brandName'];
-                $output .= "<input type='checkbox' value='$brandId' name='$brandName'> $brandName<br>";
+                $output .= "<div class='checkbox'><input type='checkbox' value='$brandId' name=brands> $brandName<br></div>";
             }
         }
         return $output;
     }
 
+    function getFavourites($array){
+        
+    }
 }
 
 ?>
