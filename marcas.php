@@ -6,6 +6,8 @@ require_once "autoloader.php";
 $data= new Gestion;
 $brands = $data->getBrands();
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,11 +20,11 @@ $brands = $data->getBrands();
 </head>
 <body class="container">
     <h1>Buscador de marcas favoritas</h1>
-    <form action="" method="post">
+    <form action="favoritos.php" method="post">
     <div class="checkbox-group">
         <?php echo $brands ?>
     </div>
-    <input type="submit" value="Seleccionar">
+    <input type="submit" value="Buscar">
     </form>
 </body>
 </html>
